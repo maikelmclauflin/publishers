@@ -38,7 +38,7 @@ script id="choose-channel-type" type="text/html"
             #promo-referring-fans= t("promo.activate.for_referring_your_fans")
           .promo-panel-item.promo-panel-item-button
             = form_for current_publisher, { method: :get, url: promo_registrations_path } do |f|
-              = f.submit(t("promo.activate.button-dashboard").upcase, class: "btn btn-primary", id: "activate-promo-dashboard-button" )
+              = f.submit(t("promo.activate.button-dashboard").upcase, class: "btn btn-primary", id: "activate-promo-dashboard-button", :"data-piwik-action" => "ActivatePromoClicked", :"data-piwik-name" => "Clicked", :"data-piwik-value" => "PromoFlow")
         - elsif current_publisher.has_verified_channel?
           .promo-flex-col
             .promo-flex-row.promo-flex-row-main
@@ -78,7 +78,7 @@ script id="choose-channel-type" type="text/html"
             .text= uphold_status_summary(current_publisher)
             .action
               span= "("
-              = link_to(t(".uphold.connect"), uphold_authorization_endpoint(current_publisher), class: "connect-uphold")
+              = link_to(t(".uphold.connect"), uphold_authorization_endpoint(current_publisher), class: "connect-uphold", :"data-piwik-action" => "UpholdConnectClicked", :"data-piwik-name" => "Clicked", :"data-piwik-value" => "Dashboard")
               a.disconnect-uphold href="#"
                 = t ".uphold.disconnect"
               span= ")"
@@ -90,7 +90,7 @@ script id="choose-channel-type" type="text/html"
         #uphold_connect
           .panel-section
             = link_to(uphold_authorization_description(current_publisher),
-                      uphold_authorization_endpoint(current_publisher), class: "btn btn-primary", :"data-test" => "reconnect-button")
+                      uphold_authorization_endpoint(current_publisher), class: "btn btn-primary", :"data-test" => "reconnect-button" , :"data-piwik-action" => "UpholdReconnectClicked", :"data-piwik-name" => "Clicked", :"data-piwik-value" => "Dashboard")
         #uphold_dashboard class=uphold_status_class(current_publisher)
           .panel-section
             - available_currencies = publisher_available_currencies(current_publisher)
@@ -180,8 +180,8 @@ script id="choose-channel-type" type="text/html"
         - if channel.verified?
           - if current_publisher.promo_status(promo_running?) == :active && channel.promo_enabled?
             .channel--promo-info-container
-              = link_to("", tweet_url(channel.promo_registration.referral_code), target: :_blank, class: "promo-share-button promo-share-button-twitter")
-              = link_to("", facebook_url(channel.promo_registration.referral_code), target: :_blank, class: "promo-share-button promo-share-button-facebook")
+              = link_to("", tweet_url(channel.promo_registration.referral_code), target: :_blank, class: "promo-share-button promo-share-button-twitter", :"data-piwik-action" => "ShareTwitterClicked", :"data-piwik-name" => "Clicked", :"data-piwik-value" => "Dashboard")
+              = link_to("", facebook_url(channel.promo_registration.referral_code), target: :_blank, class: "promo-share-button promo-share-button-facebook", :"data-piwik-action" => "ShareFacebookClicked", :"data-piwik-name" => "Clicked", :"data-piwik-value" => "Dashboard")
               .referral-link-url.promo-info-item
                 span= https_referral_url(channel.promo_registration.referral_code)
               .referral-link-button.referral-link-button-desktop.promo-info-item

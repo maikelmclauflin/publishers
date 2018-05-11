@@ -10,8 +10,8 @@
     .single-panel--padded-content.text-left
       h3.single-panel--headline.text-center= t ".heading"
       .single-panel.text-center
-        p#wordpress_escape_hatch = t(".escape_hatch_html", { :href => link_to(t(".verify_dns_record"), verification_dns_record_site_channel_path) })
-        
+        p#wordpress_escape_hatch = t(".escape_hatch_html", { :href => link_to(t(".verify_dns_record"), verification_dns_record_site_channel_path, :"data-piwik-action" => "WordpressEscapeHatchClicked", :"data-piwik-name" => "Clicked", :"data-piwik-value" => "WordpressFlow") })
+
       .col-small-centered.text-left
         .site-channels--https-check
           = render :partial => 'https_check', :locals => { current_channel: current_channel }
@@ -31,4 +31,4 @@
           .panel-controls
             = form_for(current_channel.details, method: :patch, url: verify_site_channel_path(current_channel)) do |f|
               = f.submit(t("site_channels.shared.verify_button"), class: "btn btn-wide btn-primary", :"data-piwik-action" => "WordpressVerificationClicked", :"data-piwik-name" => "Clicked", :"data-piwik-value" => "WordpressFlow")
-              = link_to(t("site_channels.shared.finish_verification_later"), home_publishers_path, class: "site-channels--finish-later")
+              = link_to(t("site_channels.shared.finish_verification_later"), home_publishers_path, class: "site-channels--finish-later", :"data-piwik-action" => "WordpressFinishLaterClicked", :"data-piwik-name" => "Clicked", :"data-piwik-value" => "WordpressFlow")
